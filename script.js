@@ -4,24 +4,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainContent = document.getElementById('main-content');
     const interactiveEnvelope = document.getElementById('interactive-envelope');
     const envelopeWrapper = document.getElementById('envelope-wrapper');
+    const bgMusic = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
 
-    // 1. APERTURA CINEMÁTICA INSTANTÁNEA (Sin audio)
+    let isMusicPlaying = false;
+
+    // 1. APERTURA CINEMÁTICA Y REPRODUCCIÓN DE AUDIO (DropBox)
     interactiveEnvelope.addEventListener('click', () => {
         // Detenemos el latido para que el sobre se abra sin brincos
         envelopeWrapper.classList.remove('pulse-animation');
-        
         interactiveEnvelope.classList.add('open');
+
+        // Forzar reproducción al momento del clic
+        bgMusic.play().then(() => {
+            isMusicPlaying = true;
+            musicToggle.classList.remove('paused');
+        }).catch(err => {
+            console.warn("Autoplay bloqueado por el navegador:", err);
+            musicToggle.classList.add('paused');
+        });
 
         // Transición directa y fluida hacia la invitación
         setTimeout(() => {
             welcomeScreen.classList.add('fade-out');
             mainContent.classList.remove('hidden');
+            musicToggle.classList.remove('hidden'); // Aparece botón de control
             
             // Forzar renderizado de animaciones de scroll
             setTimeout(() => {
                 window.dispatchEvent(new Event('scroll'));
             }, 150);
         }, 1200);
+    });
+
+    // Control Manual del Audio
+    musicToggle.addEventListener('click', () => {
+        if (isMusicPlaying) {
+            bgMusic.pause();
+            musicToggle.classList.add('paused');
+        } else {
+            bgMusic.play();
+            musicToggle.classList.remove('paused');
+        }
+        isMusicPlaying = !isMusicPlaying;
     });
 
     // 2. TEMPORIZADOR (Meta: 19 Julio 2026)
@@ -41,7 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }, 1000);
 
-    // 3. CANVAS DE PARTÍCULAS DORADAS (Polvo de hadas flotante de fondo)
+    // 3. CANVAS DE PARTÍCULAS DORADAS
     const canvas = document.getElementById('sparkles-canvas');
     const ctx = canvas.getContext('2d');
     let particlesArray = [];
