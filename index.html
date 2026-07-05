@@ -14,6 +14,14 @@
 
     <canvas id="sparkles-canvas"></canvas>
 
+    <audio id="bg-music" loop preload="auto">
+        <source src="https://www.dropbox.com/scl/fi/6l7ekz1mtfutm7ulaloq0/Cenicienta-2015-Vals-del-amor-Instrumental.mp3?rlkey=okqfau6i7vgxoygaq3b9m98in&st=b8g8zil1&dl=1" type="audio/mp3">
+    </audio>
+
+    <button id="music-toggle" class="music-toggle hidden">
+        <i class="fa-solid fa-music"></i>
+    </button>
+
     <div id="welcome-screen" class="welcome-screen">
         <div class="welcome-header">
             <h2 class="title-xv-welcome">Mis XV Años</h2>
@@ -56,9 +64,7 @@
 
         <section class="gold-frame-card section-animate">
             <p class="lema-text">"Hace XV años mi madre y padre dieron gracias a Dios por traerme a sus vidas. Hoy doy las gracias a Dios por haber permitido que mi vida estuviera llena de amor y bendiciones. Agradecida de llegar a este día tan soñado y lleno de felicidad e ilusión."</p>
-            
             <div class="divider"></div>
-            
             <div class="parents-container">
                 <h3 class="gold-title">Mis Padres</h3>
                 <p><strong>Mamá:</strong> Sanjuana Yadira Piña Martínez</p>
@@ -78,7 +84,6 @@
 
         <section class="gold-frame-card section-animate">
             <h3 class="gold-title mb-4">Cuándo & Dónde</h3>
-            
             <div class="event-block">
                 <div class="event-icon"><i class="fa-solid fa-church"></i></div>
                 <h4 class="event-title">Ceremonia Religiosa</h4>
@@ -90,9 +95,7 @@
                     <a href="https://waze.com/ul?q=Parroquia+de+la+Santisima+Trinidad+Valle+de+Lincoln" target="_blank" class="btn-map waze"><i class="fa-brands fa-waze"></i> Waze</a>
                 </div>
             </div>
-
             <div class="divider"></div>
-
             <div class="event-block">
                 <div class="event-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
                 <h4 class="event-title">Recepción</h4>
@@ -113,9 +116,7 @@
                 <p class="status-formal">Formal</p>
                 <p class="gift-desc">Se ruega respetar el color de la quinceañera (Celeste).</p>
             </div>
-            
             <div class="divider"></div>
-
             <div class="detail-block">
                 <i class="fa-solid fa-envelope-open-text detail-icon"></i>
                 <h3 class="gold-title">Mesa de Regalos</h3>
@@ -141,10 +142,8 @@
                 <div id="guests-container" class="hidden-field">
                     <select id="guest-count" class="input-premium">
                         <option value="" disabled selected>Cantidad de asistentes</option>
-                        <option value="1">1 Persona</option>
-                        <option value="2">2 Personas</option>
-                        <option value="3">3 Personas</option>
-                        <option value="4">4 Personas</option>
+                        <option value="1">1 Persona</option><option value="2">2 Personas</option>
+                        <option value="3">3 Personas</option><option value="4">4 Personas</option>
                         <option value="5">5 Personas</option>
                     </select>
                 </div>
