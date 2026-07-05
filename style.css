@@ -1,68 +1,55 @@
-root {
-    --plumbago-bg: #7A93B2; /* Azul Plúmbago oficial */
-    --gold-champagne: #D4AF37; /* Borde heráldico oro */
-    --gold-light: #F3E5AB; /* Resplandor de la zapatilla */
-    --ivory-card: #FDFBF7;  /* Color crema de los marcos independientes */
-    --text-dark: #475569;   /* Tipografía legible */
+:root {
+    --plumbago-bg: #7A93B2; 
+    --gold-champagne: #D4AF37; 
+    --gold-light: #F3E5AB; 
+    --ivory-card: #FDFBF7;  
+    --text-dark: #475569;   
 }
 
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
     font-family: 'Poppins', sans-serif;
     background-color: var(--plumbago-bg);
     color: var(--text-dark);
     overflow-x: hidden;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    user-select: none;
+    -webkit-user-select: none; -moz-user-select: none; user-select: none;
 }
 
-/* Permitir selección de texto exclusivamente en inputs */
-.input-premium, select {
-    -webkit-user-select: text;
-    -moz-user-select: text;
-    user-select: text;
-}
+.input-premium, select { -webkit-user-select: text; -moz-user-select: text; user-select: text; }
 
-#sparkles-canvas {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0; 
-    pointer-events: none;
+#sparkles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; }
+
+/* Botón de Música */
+.music-toggle {
+    position: fixed; top: 20px; right: 20px; z-index: 1001;
+    background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(5px);
+    border: 1px solid var(--gold-champagne); width: 44px; height: 44px;
+    border-radius: 50%; color: white; cursor: pointer; transition: 0.3s;
+    display: flex; justify-content: center; align-items: center; font-size: 1.1rem;
 }
+.music-toggle.hidden { display: none; }
+.music-toggle.paused i::before { content: "\f166"; /* Cambia ícono a mute */ }
 
 /* PANTALLA DE BIENVENIDA */
 .welcome-screen {
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background-color: var(--plumbago-bg);
     display: flex; flex-direction: column; justify-content: center; align-items: center;
-    z-index: 1000;
-    transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+    z-index: 1000; transition: transform 1.2s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
 }
 .welcome-screen.fade-out { transform: translateY(-100%); opacity: 0; }
 .welcome-header { text-align: center; margin-bottom: 40px; }
 .title-xv-welcome { font-family: 'Poppins', sans-serif; font-size: 1.2rem; font-weight: 300; letter-spacing: 5px; color: white; text-transform: uppercase; }
 .name-gala-welcome { font-family: 'Playfair Display', serif; font-size: 2.5rem; color: var(--gold-light); margin-top: 10px; }
 
-/* SOBRE INTERACTIVO Y EFECTO DE LATIDO */
+/* SOBRE INTERACTIVO */
 .envelope-wrapper { position: relative; width: 260px; height: 160px; perspective: 1000px; margin: 20px 0; }
-
-.pulse-animation {
-    animation: heartbeat 1.8s infinite ease-in-out;
-}
+.pulse-animation { animation: heartbeat 1.8s infinite ease-in-out; filter: drop-shadow(0 0 15px rgba(212, 175, 55, 0.4)); }
 
 @keyframes heartbeat {
-    0% { transform: scale(1); }
-    15% { transform: scale(1.06); }
-    30% { transform: scale(1); }
-    45% { transform: scale(1.06); }
-    100% { transform: scale(1); }
+    0%, 30%, 100% { transform: scale(1); }
+    15%, 45% { transform: scale(1.06); }
 }
 
 .envelope { width: 100%; height: 100%; position: relative; transform-style: preserve-3d; cursor: pointer; transition: 0.5s; }
@@ -79,20 +66,14 @@ body {
 .gold-wax-seal { width: 40px; height: 40px; background: linear-gradient(135deg, #F9D976, #D4AF37); border-radius: 50%; box-shadow: 0 4px 8px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; color: white; }
 .tap-instruction-welcome { color: white; font-style: italic; font-weight: 300; margin-top: 20px; letter-spacing: 1px; }
 
-/* CANVAS / MAIN */
-.main-content { width: 100%; max-width: 480px; margin: 0 auto; background-color: var(--plumbago-bg); min-height: 100vh; padding-bottom: 40px; }
+/* CANVAS / MAIN CON BRILLO EXTERIOR */
+.main-content { width: 100%; max-width: 480px; margin: 0 auto; background-color: var(--plumbago-bg); min-height: 100vh; padding-bottom: 40px; box-shadow: 0 0 35px rgba(212, 175, 55, 0.2); }
 .hidden { display: none; }
 
-/* HERO Y CONTENEDOR DE ZAPATILLA CONTORNO-BRILHO */
+/* HERO Y ZAPATILLA */
 .hero-section { position: relative; padding: 60px 20px 40px 20px; display: flex; flex-direction: column; align-items: center; text-align: center; z-index: 1; }
 .slipper-container { position: relative; width: 140px; height: 140px; margin-bottom: 25px; display: flex; justify-content: center; align-items: center; }
-.glass-slipper {
-    width: 100%; height: 100%;
-    background: url('https://img.icons8.com/ios/500/ffffff/women-shoe-side-view.png') no-repeat center/contain;
-    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 15px rgba(243, 229, 171, 0.8)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.6));
-    animation: floatSlipper 3s ease-in-out infinite;
-}
-
+.glass-slipper { width: 100%; height: 100%; background: url('https://img.icons8.com/ios/500/ffffff/women-shoe-side-view.png') no-repeat center/contain; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 15px rgba(243, 229, 171, 0.8)) drop-shadow(0 0 25px rgba(212, 175, 55, 0.6)); animation: floatSlipper 3s ease-in-out infinite; }
 .sparkle { position: absolute; width: 20px; height: 20px; background: url('https://img.icons8.com/ios-filled/50/ffffff/sparkling.png') no-repeat center/contain; opacity: 0; animation: twinkle 2s infinite ease-in-out; }
 .sparkle-1 { top: 25%; left: 15%; animation-delay: 0s; }
 .sparkle-2 { top: 55%; right: 10%; animation-delay: 0.7s; transform: scale(0.8); }
@@ -106,17 +87,11 @@ body {
 .nickname { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--gold-light); margin-top: -10px; margin-bottom: 20px; text-shadow: 1px 1px 2px rgba(0,0,0,0.1); }
 .birthdate { font-family: 'Poppins', sans-serif; font-size: 0.85rem; font-weight: 400; color: white; letter-spacing: 5px; text-transform: uppercase; }
 
-/* DISEÑO DE MARCOS INDEPENDIENTES DORADOS */
-.gold-frame-card {
-    background-color: var(--ivory-card);
-    border: 2px solid var(--gold-champagne);
-    border-radius: 18px;
-    padding: 35px 25px;
-    margin: 0 20px 30px 20px;
-    position: relative;
-    box-shadow: 0 12px 25px rgba(0,0,0,0.25);
-    text-align: center;
-    z-index: 2;
+/* DISEÑO DE MARCOS CON BRILLO ANIMADO */
+.gold-frame-card { background-color: var(--ivory-card); border: 2px solid var(--gold-champagne); border-radius: 18px; padding: 35px 25px; margin: 0 20px 30px 20px; position: relative; text-align: center; z-index: 2; animation: borderGlow 2.5s infinite alternate ease-in-out; }
+@keyframes borderGlow {
+    0% { box-shadow: 0 0 10px rgba(212, 175, 55, 0.3), 0 8px 20px rgba(0,0,0,0.2); border-color: var(--gold-champagne); }
+    100% { box-shadow: 0 0 25px rgba(243, 229, 171, 0.8), 0 10px 25px rgba(0,0,0,0.3); border-color: var(--gold-light); }
 }
 .gold-frame-card::before { content: ''; position: absolute; top: 6px; left: 6px; right: 6px; bottom: 6px; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 12px; pointer-events: none; }
 .gold-frame-card::after { content: ''; position: absolute; top: -10px; left: -10px; width: 35px; height: 35px; background: url('https://img.icons8.com/ios/50/D4AF37/leaf.png') no-repeat center/contain; opacity: 0.6; pointer-events: none; }
@@ -124,26 +99,21 @@ body {
 .lema-text { font-family: 'Poppins', sans-serif; font-style: italic; font-size: 0.95rem; color: var(--text-dark); line-height: 1.8; margin-bottom: 10px; }
 .gold-title { font-family: 'Playfair Display', serif; color: #927F55; font-size: 1.4rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
 .parents-container p { font-size: 0.9rem; margin: 5px 0; }
-.mb-3 { margin-bottom: 1rem; }
-.mb-4 { margin-bottom: 1.5rem; }
-.pb-4 { padding-bottom: 1rem; }
-.mt-3 { margin-top: 1rem; }
+.mb-3 { margin-bottom: 1rem; } .mb-4 { margin-bottom: 1.5rem; } .pb-4 { padding-bottom: 1rem; } .mt-3 { margin-top: 1rem; }
 
 /* TEMPORIZADOR Y EVENTOS */
 .countdown-container { display: flex; justify-content: space-around; padding: 10px 0; }
-.time-block span { font-size: 1.8rem; font-weight: 600; color: var(--plumbago-bg); display: block; }
+.time-block span { font-size: 1.8rem; font-weight: 600; color: var(--plumbago-bg); display: block; text-shadow: 0 0 8px rgba(122, 147, 178, 0.3); }
 .time-block p { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-dark); }
-
 .event-block { text-align: center; margin: 20px 0; }
-.event-icon { font-size: 1.8rem; color: var(--gold-champagne); margin-bottom: 10px; }
+.event-icon { font-size: 1.8rem; color: var(--gold-champagne); margin-bottom: 10px; filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.4)); }
 .event-title { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--plumbago-bg); font-weight: 600; }
 .event-time { font-weight: 600; color: var(--text-dark); margin: 5px 0; }
 .address-subtext { font-size: 0.85rem; color: #64748B; margin-bottom: 15px; line-height: 1.4; }
-
 .divider { width: 60%; height: 1px; background-color: rgba(212, 175, 55, 0.3); margin: 25px auto; }
-
 .map-buttons { display: flex; gap: 10px; justify-content: center; position: relative; z-index: 5; }
-.btn-map { flex: 1; max-width: 140px; text-align: center; padding: 8px; font-size: 0.8rem; border-radius: 20px; color: white; text-decoration: none; font-weight: 400; border: 1px solid var(--gold-light); }
+.btn-map { flex: 1; max-width: 140px; text-align: center; padding: 8px; font-size: 0.8rem; border-radius: 20px; color: white; text-decoration: none; font-weight: 400; border: 1px solid var(--gold-light); transition: 0.3s; }
+.btn-map:hover { box-shadow: 0 0 10px rgba(255,255,255,0.4); }
 .btn-map.maps { background-color: var(--plumbago-bg); }
 .btn-map.waze { background-color: #927F55; }
 
@@ -152,20 +122,13 @@ body {
 .status-formal { font-size: 1.1rem; font-weight: 600; color: var(--text-dark); margin-bottom: 5px; }
 .gift-desc { font-size: 0.85rem; color: #64748B; line-height: 1.5; }
 
-/* FORMULARIO RSVP INTELIGENTE */
-.rsvp-main-icon { font-size: 2.2rem; margin-bottom: 10px; }
+/* RSVP Y BOTON WHATSAPP */
+.rsvp-main-icon { font-size: 2.2rem; margin-bottom: 10px; filter: drop-shadow(0 0 8px rgba(37, 211, 102, 0.5)); }
 .rsvp-form { display: flex; flex-direction: column; gap: 12px; margin-top: 15px; text-align: left; }
 .input-premium { padding: 14px; border: 1px solid rgba(212, 175, 55, 0.4); border-radius: 12px; font-size: 0.95rem; font-family: 'Poppins', sans-serif; background: #fff; color: var(--text-dark); outline: none; transition: box-shadow 0.3s; width: 100%; }
-.input-premium:focus { box-shadow: 0 0 8px rgba(212, 175, 55, 0.3); }
+.input-premium:focus { box-shadow: 0 0 8px rgba(212, 175, 55, 0.6); border-color: var(--gold-champagne); }
 .hidden-field { display: none; opacity: 0; }
-
-button.btn-whatsapp {
-    display: inline-block; width: 100%;
-    background: linear-gradient(135deg, #25D366, #128C7E); color: white;
-    padding: 14px 25px; border-radius: 30px; font-weight: 600; font-size: 1rem;
-    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); border: 1px solid #1EBE5D;
-    cursor: pointer; position: relative; z-index: 5; transition: 0.3s;
-}
+button.btn-whatsapp { display: inline-block; width: 100%; background: linear-gradient(135deg, #25D366, #128C7E); color: white; padding: 14px 25px; border-radius: 30px; font-weight: 600; font-size: 1rem; box-shadow: 0 4px 12px rgba(37, 211, 102, 0.4); border: 1px solid #1EBE5D; cursor: pointer; position: relative; z-index: 5; transition: transform 0.3s ease, box-shadow 0.3s ease; }
 button.btn-whatsapp:hover { transform: scale(1.03); box-shadow: 0 6px 15px rgba(37, 211, 102, 0.6); }
 
 /* ANIMACIONES SCROLL */
