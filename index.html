@@ -1,146 +1,160 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta property="og:title" content="¡Mis XV Años! - Sofía">
-<meta property="og:description" content="Acompáñame a celebrar este día tan mágico. ¡Abre tu invitación interactiva aquí!">
-<meta property="og:image" content="URL_DE_TU_FOTO_AQUI.jpg">
-<meta property="og:url" content="URL_DE_TU_INVITACION.com">
-<meta property="og:type" content="website">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis XV Años - Sofía</title>
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:ital,wght@0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <title>Mis XV Años - Linetth Alejandra</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&family=Poppins:ital,wght@0,300;0,400;0,600;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <div id="loader">
-        <div class="pulse-ring"></div>
-    </div>
+    <canvas id="sparkles-canvas"></canvas>
 
-    <div id="welcome-screen">
-        <div class="welcome-content glass-panel-dark">
-            <h1 class="title">Mis XV Años</h1>
-            <h2 class="name-script">Sofía</h2>
-            <button id="open-btn" class="btn-vibrant">¡Entrar a la fiesta! <i class="fa-solid fa-sparkles"></i></button>
+    <div id="welcome-screen" class="welcome-screen">
+        <div class="welcome-header">
+            <h2 class="title-xv-welcome">Mis XV Años</h2>
+            <h1 class="name-gala-welcome">Linetth Alejandra</h1>
         </div>
+
+        <div class="envelope-wrapper pulse-animation" id="envelope-wrapper">
+            <div id="interactive-envelope" class="envelope">
+                <div class="envelope-back"></div>
+                <div class="letter">
+                    <div class="letter-stamp">✨ Lynne ✨</div>
+                </div>
+                <div class="envelope-front"></div>
+                <div class="envelope-top"></div>
+                <div class="wax-seal-container">
+                    <div class="gold-wax-seal">
+                        <i class="fa-solid fa-heart"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p class="tap-instruction-welcome">Tocar el Sobre para Abrir</p>
     </div>
 
-    <div style="display: none;">
-        <iframe id="youtube-player" src="https://www.youtube.com/embed/PQSBWPoIeCY?enablejsapi=1&autoplay=0&loop=1&playlist=PQSBWPoIeCY" allow="autoplay" frameborder="0"></iframe>
-    </div>
-
-    <div id="main-content" class="hidden">
+    <main id="main-content" class="main-content hidden">
         
-        <button id="music-control" class="floating-btn">
-            <i class="fa-solid fa-music"></i>
-        </button>
-
-        <header class="hero section-animate">
-            <div class="floating-elements">
-                <div class="bubble bubble-1"></div>
-                <div class="bubble bubble-2"></div>
-                <div class="bubble bubble-3"></div>
-                <div class="bubble bubble-4"></div>
+        <section class="hero-section">
+            <div class="slipper-container">
+                <div class="glass-slipper"></div>
+                <div class="sparkle sparkle-1"></div>
+                <div class="sparkle sparkle-2"></div>
+                <div class="sparkle sparkle-3"></div>
             </div>
-            <div class="hero-text glass-panel-light">
-                <p class="subtitle">¡Estás invitado a la mejor noche!</p>
-                <h1 class="main-title">Mis XV Años</h1>
-                <h2 class="name-script text-glow">Sofía</h2>
-                <div class="date-badge">15 • Octubre • 2026</div>
-            </div>
-        </header>
-
-        <section class="message-section section-animate">
-            <div class="container text-center">
-                <i class="fa-solid fa-stars quote-icon"></i>
-                <p class="message-text">"¡La vida es una fiesta y quiero celebrarla con mis personas favoritas! Prepárate para una noche llena de magia, música y momentos inolvidables."</p>
+            <div class="hero-text section-animate">
+                <h1 class="linetth-title">Linetth Alejandra<br>Vega Piña</h1>
+                <p class="nickname">(Lynne)</p>
+                <div class="birthdate">23 . MAYO . 2011</div>
             </div>
         </section>
 
-        <section class="countdown-section section-animate">
-            <div class="container text-center">
-                <h3 class="section-title">¡La cuenta regresiva comenzó!</h3>
-                <div class="countdown-container">
-                    <div class="time-box dynamic-shadow">
-                        <span id="days">00</span>
-                        <p>Días</p>
-                    </div>
-                    <div class="time-box dynamic-shadow">
-                        <span id="hours">00</span>
-                        <p>Hrs</p>
-                    </div>
-                    <div class="time-box dynamic-shadow">
-                        <span id="minutes">00</span>
-                        <p>Min</p>
-                    </div>
-                    <div class="time-box dynamic-shadow">
-                        <span id="seconds">00</span>
-                        <p>Seg</p>
-                    </div>
+        <section class="gold-frame-card section-animate">
+            <p class="lema-text">"Hace XV años mi madre y padre dieron gracias a Dios por traerme a sus vidas. Hoy doy las gracias a Dios por haber permitido que mi vida estuviera llena de amor y bendiciones. Agradecida de llegar a este día tan soñado y lleno de felicidad e ilusión."</p>
+            
+            <div class="divider"></div>
+            
+            <div class="parents-container">
+                <h3 class="gold-title">Mis Padres</h3>
+                <p><strong>Mamá:</strong> Sanjuana Yadira Piña Martínez</p>
+                <p><strong>Papá:</strong> Cirilo Vega Rodríguez</p>
+            </div>
+        </section>
+
+        <section class="gold-frame-card section-animate">
+            <h3 class="gold-title mb-3">Faltan:</h3>
+            <div class="countdown-container">
+                <div class="time-block"><span id="days">00</span><p>Días</p></div>
+                <div class="time-block"><span id="hours">00</span><p>Horas</p></div>
+                <div class="time-block"><span id="minutes">00</span><p>Min</p></div>
+                <div class="time-block"><span id="seconds">00</span><p>Seg</p></div>
+            </div>
+        </section>
+
+        <section class="gold-frame-card section-animate">
+            <h3 class="gold-title mb-4">Cuándo & Dónde</h3>
+            
+            <div class="event-block">
+                <div class="event-icon"><i class="fa-solid fa-church"></i></div>
+                <h4 class="event-title">Ceremonia Religiosa</h4>
+                <p class="event-time">5:00 PM</p>
+                <p class="location-name">Parroquia de la Santísima Trinidad</p>
+                <p class="address-subtext">Av. Real de Palmas #501 esq. Naica, Col. Valle de Lincoln, García, N.L.</p>
+                <div class="map-buttons">
+                    <a href="https://maps.app.goo.gl/URRMvDkdKEFGXAZC9?g_st=ac" target="_blank" class="btn-map maps"><i class="fa-solid fa-map-location-dot"></i> Google Maps</a>
+                    <a href="https://waze.com/ul?q=Parroquia+de+la+Santisima+Trinidad+Valle+de+Lincoln" target="_blank" class="btn-map waze"><i class="fa-brands fa-waze"></i> Waze</a>
+                </div>
+            </div>
+
+            <div class="divider"></div>
+
+            <div class="event-block">
+                <div class="event-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+                <h4 class="event-title">Recepción</h4>
+                <p class="event-time">8:00 PM</p>
+                <p class="location-name">El Granero Eventos</p>
+                <p class="address-subtext">Of. Bernardo #212 entre Garza Ayala y Matamoros, Centro de García, N.L.</p>
+                <div class="map-buttons">
+                    <a href="https://maps.app.goo.gl/TVMZn8vsQeb39G7t8" target="_blank" class="btn-map maps"><i class="fa-solid fa-map-location-dot"></i> Google Maps</a>
+                    <a href="https://waze.com/ul?q=El+Granero+Eventos+Centro+de+Garcia" target="_blank" class="btn-map waze"><i class="fa-brands fa-waze"></i> Waze</a>
                 </div>
             </div>
         </section>
 
-        <section class="location-section section-animate">
-            <div class="container">
-                <h3 class="section-title text-center">¿Dónde es la fiesta?</h3>
-                <div class="cards-container">
-                    <div class="card glass-panel-light hover-bounce">
-                        <div class="icon-wrapper"><i class="fa-solid fa-church"></i></div>
-                        <h4>Ceremonia</h4>
-                        <p class="highlight-text">5:00 PM</p>
-                        <p>Parroquia de San Juan Bautista</p>
-                        <a href="https://maps.google.com" target="_blank" class="btn-outline">Ver Mapa <i class="fa-solid fa-location-dot"></i></a>
-                    </div>
-                    <div class="card glass-panel-light hover-bounce">
-                        <div class="icon-wrapper"><i class="fa-solid fa-martini-glass-citrus"></i></div>
-                        <h4>Recepción</h4>
-                        <p class="highlight-text">7:30 PM</p>
-                        <p>Salón "El Gran Palacio"</p>
-                        <a href="https://maps.google.com" target="_blank" class="btn-outline">Ver Mapa <i class="fa-solid fa-location-dot"></i></a>
-                    </div>
+        <section class="gold-frame-card section-animate">
+            <div class="detail-block">
+                <i class="fa-solid fa-user-tie detail-icon"></i>
+                <h3 class="gold-title">Código de Vestimenta</h3>
+                <p class="status-formal">Formal</p>
+                <p class="gift-desc">Se ruega respetar el color de la quinceañera (Celeste).</p>
+            </div>
+            
+            <div class="divider"></div>
+
+            <div class="detail-block">
+                <i class="fa-solid fa-envelope-open-text detail-icon"></i>
+                <h3 class="gold-title">Mesa de Regalos</h3>
+                <p class="status-formal">Lluvia de Sobres</p>
+                <p class="gift-desc">Tu presencia es mi mejor regalo, pero si deseas otorgarme un detalle, puedes colocarlo en un sobre en la entrada del salón.</p>
+            </div>
+        </section>
+
+        <section class="gold-frame-card section-animate pb-4">
+            <i class="fa-brands fa-whatsapp rsvp-main-icon" style="color: #25D366;"></i>
+            <h3 class="gold-title">Confirmar Asistencia</h3>
+            <p class="gift-desc mb-4">Fecha límite: <strong>20 de Julio 2026</strong></p>
+            
+            <form id="rsvp-form" class="rsvp-form">
+                <input type="text" id="guest-name" placeholder="Tu Nombre y Apellido" required class="input-premium">
+
+                <select id="attendance-status" class="input-premium" required>
+                    <option value="" disabled selected>¿Asistirás al evento?</option>
+                    <option value="yes">Sí, ahí estaré</option>
+                    <option value="no">No podré asistir</option>
+                </select>
+
+                <div id="guests-container" class="hidden-field">
+                    <select id="guest-count" class="input-premium">
+                        <option value="" disabled selected>Cantidad de asistentes</option>
+                        <option value="1">1 Persona</option>
+                        <option value="2">2 Personas</option>
+                        <option value="3">3 Personas</option>
+                        <option value="4">4 Personas</option>
+                        <option value="5">5 Personas</option>
+                    </select>
                 </div>
-            </div>
-        </section>
 
-        <section class="dresscode-section section-animate">
-            <div class="container text-center glass-panel-gradient">
-                <h3 class="section-title text-white">Dress Code</h3>
-                <i class="fa-solid fa-gem section-icon-white"></i>
-                <p class="dresscode-text text-white">¡Vístete para impresionar! (Formal)</p>
-                <p class="dresscode-note text-white"><em>Por favor, reserva el color fucsia para mí 😉</em></p>
-            </div>
+                <button type="submit" class="btn-whatsapp mt-3">
+                    <i class="fa-brands fa-whatsapp"></i> Enviar por WhatsApp
+                </button>
+            </form>
         </section>
-
-        <section class="rsvp-section section-animate">
-            <div class="container glass-panel-light">
-                <h3 class="section-title text-center">Confirma tu asistencia</h3>
-                <p class="text-center mb-20">No me dejes plantada, ¡confirma antes del 1 de Octubre!</p>
-                <form id="rsvp-form">
-                    <div class="form-group">
-                        <input type="text" id="name" required placeholder="Tu Nombre Completo">
-                    </div>
-                    <div class="form-group">
-                        <select id="guests" required>
-                            <option value="" disabled selected>¿Cuántos vienen?</option>
-                            <option value="1">Voy solo/a (1)</option>
-                            <option value="2">Vamos 2 personas</option>
-                            <option value="3">Vamos 3 personas</option>
-                            <option value="0">¡Ups! No podré ir 😢</option>
-                        </select>
-                    </div>
-                    <button type="submit" class="btn-vibrant w-100">Enviar WhatsApp <i class="fa-brands fa-whatsapp"></i></button>
-                </form>
-            </div>
-        </section>
-
-        <footer class="footer text-center">
-            <h2 class="name-script footer-name">Sofía</h2>
-            <p>¡Nos vemos en la pista de baile!</p>
-        </footer>
-    </div>
+    </main>
 
     <script src="script.js"></script>
 </body>
