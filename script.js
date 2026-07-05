@@ -1,132 +1,161 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // 1. Ocultar Loader Dinámico
-    const loader = document.getElementById('loader');
-    setTimeout(() => {
-        loader.style.opacity = '0';
-        setTimeout(() => loader.style.display = 'none', 500);
-    }, 1200);
-
-    // 2. Lógica de Bienvenida y YouTube Iframe
     const welcomeScreen = document.getElementById('welcome-screen');
     const mainContent = document.getElementById('main-content');
-    const openBtn = document.getElementById('open-btn');
-    const musicControl = document.getElementById('music-control');
-    const musicIcon = musicControl.querySelector('i');
-    
-    const ytPlayerIframe = document.getElementById('youtube-player');
-    let isPlaying = false;
+    const interactiveEnvelope = document.getElementById('interactive-envelope');
+    const envelopeWrapper = document.getElementById('envelope-wrapper');
 
-    openBtn.addEventListener('click', () => {
-        // Deslizar pantalla hacia arriba
-        welcomeScreen.classList.add('slide-up');
-        mainContent.classList.remove('hidden');
+    // 1. APERTURA CINEMÁTICA INSTANTÁNEA (Sin audio)
+    interactiveEnvelope.addEventListener('click', () => {
+        // Detenemos el latido para que el sobre se abra sin brincos
+        envelopeWrapper.classList.remove('pulse-animation');
         
-        // Reproducir música vibrante
-        if (ytPlayerIframe && ytPlayerIframe.contentWindow) {
-            ytPlayerIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            isPlaying = true;
-            // Cambiar ícono a pausa y agregar animación rotatoria
-            musicIcon.classList.replace('fa-music', 'fa-pause');
-            musicControl.style.animation = "pulse-ring 2s infinite";
-        }
+        interactiveEnvelope.classList.add('open');
 
-        setTimeout(() => welcomeScreen.style.display = 'none', 1000);
+        // Transición directa y fluida hacia la invitación
+        setTimeout(() => {
+            welcomeScreen.classList.add('fade-out');
+            mainContent.classList.remove('hidden');
+            
+            // Forzar renderizado de animaciones de scroll
+            setTimeout(() => {
+                window.dispatchEvent(new Event('scroll'));
+            }, 150);
+        }, 1200);
     });
 
-    // Control Play/Pause Manual
-    musicControl.addEventListener('click', () => {
-        if (!ytPlayerIframe || !ytPlayerIframe.contentWindow) return;
-
-        if (isPlaying) {
-            ytPlayerIframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
-            musicIcon.classList.replace('fa-pause', 'fa-music');
-            musicControl.style.animation = "none";
-        } else {
-            ytPlayerIframe.contentWindow.postMessage('{"event":"command","func":"playVideo","args":""}', '*');
-            musicIcon.classList.replace('fa-music', 'fa-pause');
-            musicControl.style.animation = "pulse-ring 2s infinite";
-        }
-        isPlaying = !isPlaying;
-    });
-
-    // 3. Cuenta Regresiva
-    const eventDate = new Date('October 15, 2026 17:00:00').getTime();
-
+    // 2. TEMPORIZADOR (Meta: 19 Julio 2026)
+    const eventDate = new Date('July 19, 2026 17:00:00').getTime();
     const countdownInterval = setInterval(() => {
         const now = new Date().getTime();
         const distance = eventDate - now;
 
         if (distance < 0) {
             clearInterval(countdownInterval);
-            document.querySelector('.countdown-container').innerHTML = "<h3 style='color: var(--color-primary); font-family: var(--font-script); font-size: 3rem;'>¡Hoy es la gran fiesta!</h3>";
+            document.querySelector('.countdown-container').innerHTML = "<p style='font-weight:600; color:#748BAA;'>¡El gran día de gala ha comenzado!</p>";
             return;
         }
-
-        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-        document.getElementById('days').innerText = days.toString().padStart(2, '0');
-        document.getElementById('hours').innerText = hours.toString().padStart(2, '0');
-        document.getElementById('minutes').innerText = minutes.toString().padStart(2, '0');
-        document.getElementById('seconds').innerText = seconds.toString().padStart(2, '0');
-
+        document.getElementById('days').innerText = Math.floor(distance / (1000 * 60 * 60 * 24)).toString().padStart(2, '0');
+        document.getElementById('hours').innerText = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).toString().padStart(2, '0');
+        document.getElementById('minutes').innerText = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)).toString().padStart(2, '0');
+        document.getElementById('seconds').innerText = Math.floor((distance % (1000 * 60)) / 1000).toString().padStart(2, '0');
     }, 1000);
 
-    // 4. Animaciones al hacer Scroll (Scale In Up)
-    const observerOptions = {
-        root: null,
-        rootMargin: '0px',
-        threshold: 0.15
-    };
+    // 3. CANVAS DE PARTÍCULAS DORADAS (Polvo de hadas flotante de fondo)
+    const canvas = document.getElementById('sparkles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particlesArray = [];
 
-    const observer = new IntersectionObserver((entries, observer) => {
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    window.addEventListener('resize', resizeCanvas);
+    resizeCanvas();
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.size = Math.random() * 1.5 + 0.5;
+            this.speedX = Math.random() * 0.3 - 0.15;
+            this.speedY = Math.random() * -0.4 - 0.1; 
+            this.opacity = Math.random() * 0.6 + 0.2;
+        }
+        update() {
+            this.x += this.speedX;
+            this.y += this.speedY;
+            if (this.y < 0) {
+                this.y = canvas.height;
+                this.x = Math.random() * canvas.width;
+            }
+        }
+        draw() {
+            ctx.fillStyle = `rgba(243, 229, 171, ${this.opacity})`;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particlesArray = [];
+        for (let i = 0; i < 45; i++) particlesArray.push(new Particle());
+    }
+    initParticles();
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particlesArray.length; i++) {
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // 4. OBSERVADOR DE ANIMACIONES ON-SCROLL
+    const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
                 observer.unobserve(entry.target);
             }
         });
-    }, observerOptions);
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.section-animate').forEach(section => {
         observer.observe(section);
     });
 
-    // 5. Envío de RSVP por WhatsApp con un tono más divertido
+    // 5. GESTIÓN DEL FORMULARIO RSVP INTELIGENTE
     const rsvpForm = document.getElementById('rsvp-form');
-    
+    const attendanceStatus = document.getElementById('attendance-status');
+    const guestsContainer = document.getElementById('guests-container');
+    const guestCount = document.getElementById('guest-count');
+
+    attendanceStatus.addEventListener('change', (e) => {
+        if (e.target.value === 'yes') {
+            guestsContainer.classList.remove('hidden-field');
+            guestCount.setAttribute('required', 'required');
+            guestsContainer.style.display = 'block';
+            setTimeout(() => guestsContainer.style.opacity = '1', 10);
+        } else {
+            guestsContainer.style.opacity = '0';
+            setTimeout(() => {
+                guestsContainer.classList.add('hidden-field');
+                guestsContainer.style.display = 'none';
+            }, 300);
+            guestCount.removeAttribute('required');
+            guestCount.value = ""; 
+        }
+    });
+
     rsvpForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
-        const name = document.getElementById('name').value.trim();
-        const guests = document.getElementById('guests').value;
-        const phoneNumber = "521234567890"; 
+        const name = document.getElementById('guest-name').value.trim();
+        const status = attendanceStatus.value;
+        const count = guestCount.value;
+        const targetPhone = "528113699406"; 
         
         let message = "";
-        
-        if (guests === "0") {
-            message = `¡Hola! Soy ${name}. Me duele mucho perderme los XV de Sofía, pero no podré asistir 😢. ¡Pásenla increíble y bailen mucho por mí!`;
+
+        if (status === 'yes') {
+            message = `¡Hola! Confirmo mi asistencia a los XV años de Linetth Alejandra (Lynne) ✨. Mi nombre es ${name} y asistiremos ${count} persona(s). ¡Qué emoción acompañarlos!`;
         } else {
-            message = `¡Hola! Soy ${name} y obvio que no me pierdo los XV de Sofía 🥳. Confirmo mi asistencia para ${guests} persona(s). ¡Ya quiero que sea la fiesta!`;
+            message = `¡Hola! Soy ${name}. Agradezco mucho la invitación a los XV años de Linetth Alejandra (Lynne), pero lamentablemente no podré asistir. ¡Les deseo una noche mágica de cuento de hadas! ✨`;
         }
 
-        const encodedMessage = encodeURIComponent(message);
-        window.open(`https://wa.me/${phoneNumber}?text=${encodedMessage}`, '_blank');
+        window.open(`https://wa.me/${targetPhone}?text=${encodeURIComponent(message)}`, '_blank');
     });
 
-    // Bloquear clic derecho
-document.addEventListener('contextmenu', event => event.preventDefault());
-
-// Bloquear atajos comunes (F12, Ctrl+Shift+I, Ctrl+U)
-document.onkeydown = function(e) {
-    if(e.keyCode == 123) return false; // F12
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) return false; // Ctrl+Shift+I
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'C'.charCodeAt(0)) return false; // Ctrl+Shift+C
-    if(e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) return false; // Ctrl+Shift+J
-    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // Ctrl+U
-};
-
+    // 6. PROTECCIÓN ANTICOPIADO ACTIVA
+    document.addEventListener('contextmenu', event => event.preventDefault()); 
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) || (e.ctrlKey && e.key === 'u')) {
+            e.preventDefault();
+            return false;
+        }
+    });
 });
