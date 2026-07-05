@@ -167,7 +167,7 @@ document.addEventListener('DOMContentLoaded', () => {
         let message = "";
 
         if (status === 'yes') {
-            message = `¡Hola! Confirmo mi asistencia a los XV años de Linetth Alejandra (Lynne) ✨. Mi nombre es ${name} y asistiremos ${count} persona(s). ¡Qué emoción acompañarlos!`;
+            message = `¡Hola! Confirmo mi asistencia a los XV años de Linetth Alejandra (Lynne) ✨. Mi nombre es ${name} y asistiremos ${count} persona(s). ¡Qué gran felicidad compartir este cuento de hadas con ustedes!`;
         } else {
             message = `¡Hola! Soy ${name}. Agradezco mucho la invitación a los XV años de Linetth Alejandra (Lynne), pero lamentablemente no podré asistir. ¡Les deseo una noche mágica de cuento de hadas! ✨`;
         }
